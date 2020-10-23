@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>apps sharing cookies</title>
+  </head>
+  <body>
+    <p>Version: <span id="of-version"></span></p>
+    <p>
+      the "login" button will set a cookie, the url ("/") for both of the apps
+      below requires the cookie - if it isn't present launching those apps will
+      result in them opening to the login page
+    </p>
+    <button id="login">"login"</button>
+    <button id="clear-cookies">clear cookies</button>
+
+    <p>Try launching apps with and without "logging in"</p>
+
+    <button id="launch">launch app</button>
+    <button id="alt-launch">launch other app</button>
+  </body>
+  <script>
+    const ofVersion = document.getElementById("of-version");
+    const loginBtn = document.getElementById("login");
+    const clearCookiesBtn = document.getElementById("clear-cookies");
+    const launchBtn = document.getElementById("launch");
+    const altLaunchBtn = document.getElementById("alt-launch");
+
+    loginBtn.addEventListener("click", async (e) => {
+      e.preventDefault();
+      const response = await fetch("/signin");
+      console.log(response);
+      if (response.status === 200) console.log('"login" successful');
+    });
+
+    clearCookiesBtn.addEventListener("click", async (e) => {
+      const opts = {
+        appcache: false,
+        cache: false,
+        cookies: true,
+        localStorage: false,
+      };
+      try {
+        await fin.System.clearCache(opts);
+      } catch (e) {
+        console.log(e);
+      }
+    });
+
+    launchBtn.addEventListener("click", async (e) => {
+      await fin.Application.startFromManifest("http://localhost:5555/app.json");
+    });
+
+    altLaunchBtn.addEventListener("click", async (e) => {
+      await fin.Application.startFromManifest(
+        "http://localhost:5555/app.alt.json"
+      );
+    });
+
+    if (typeof fin !== "undefined") {
+      fin.System.getVersion()
+        .then((v) => (ofVersion.textContent = v))
+        .catch(console.error);
+    } else {
+      ofVersion.textContent = "You are probably running in a browser.";
+    }
+  </script>
+</html>

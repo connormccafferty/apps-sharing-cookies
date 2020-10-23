@@ -1,0 +1,24 @@
+{
+  "devtools_port": 9090,
+  "startup_app": {
+    "contextMenu": true,
+    "name": "app-sharing-cookies-alt",
+    "uuid": "app-sharing-cookies-alt",
+    "url": "http://localhost:5555/",
+    "autoShow": true,
+    "saveWindowState": false,
+    "permissions": {
+      "System": {
+        "getAllExternalWindows": true,
+        "launchExternalProcess": true,
+        "readRegistryValue": true,
+        "terminateExternalProcess": true
+      }
+    }
+  },
+  "runtime": {
+    "arguments": "",
+    "version": "17.85.53.10"
+  },
+  "shortcut": {}
+}
