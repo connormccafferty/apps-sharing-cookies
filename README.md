@@ -1,6 +1,6 @@
-### Apps sharing a cookie
+### Sharing cookies between Applications
 
-Example of apps sharing a cookie. First launch the `app.login.json` app, the `url` for both `app.json` and `app.alt.json` is `http://localhost:5555/` which will check for the cookie and redirect back to `login.html` if it's not present.
+App's on the same runtime use the same cookie / session store thus you get cookie sharing by default. In this example you can set a cookie with the `login` button, once "logged in" you'll notice when launching apps via `startFromManifest` they have the cookie - if not logged in the apps will open back at the `login.html` page.
 
 #### Assumptions
 
