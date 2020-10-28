@@ -1,6 +1,6 @@
 ### Login App Launch Example
 
-App's on the same runtime use the same cookie / session store by default. This example launches a login page application `app.login.json`. "login" by entering a username and pressing the "login" button. No matter what you enter a cookie will be set by the server and another application will launch. If you enter a username that includes `@openfin.co` the "premium" app `app.premium.json` will launch.
+App's on the same runtime use the same cookie / session store by default. This example launches a login page application `app.login.json` which serves an an entry point to the eventual version of the app based on the user. "login" by entering a username and pressing the "login" button. No matter what you enter a cookie will be set by the server and another application will launch. If you enter a username that includes `@openfin.co` the "premium" app `app.premium.json` will launch.
 
 #### Assumptions
 
