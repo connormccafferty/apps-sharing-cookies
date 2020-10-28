@@ -4,14 +4,15 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
-    "start:openfin": "npx openfin-cli -l -c localhost:5555/app.login.json"
+    "start": "node index.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "body-parser": "^1.19.0",
     "cookie-parser": "^1.4.4",
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "hadouken-js-adapter": "^17.54.32"
   }
 }

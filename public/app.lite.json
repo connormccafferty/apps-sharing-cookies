@@ -2,9 +2,9 @@
   "devtools_port": 9090,
   "startup_app": {
     "contextMenu": true,
-    "name": "app-sharing-cookies-alt",
-    "uuid": "app-sharing-cookies-alt",
-    "url": "http://localhost:5555/",
+    "name": "openfin-app-lite",
+    "uuid": "openfin-app-lite",
+    "url": "http://localhost:5555/?version=lite",
     "autoShow": true,
     "saveWindowState": false,
     "permissions": {

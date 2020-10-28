@@ -1,14 +1,21 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>apps sharing cookies</title>
+    <title>openfin-app</title>
   </head>
   <body>
-    <h2>cookie shared successfully!</h2>
-    <p>Version: <span id="of-version"></span></p>
+    <p>App Version: <span id="app-version"></span></p>
+    <p>Runtime Version: <span id="of-version"></span></p>
   </body>
   <script>
+    const cookieEl = document.getElementById("cookie");
     const ofVersion = document.getElementById("of-version");
+    const appVersion = document.getElementById("app-version");
+    const url = new URL(location.href);
+    const version = url.searchParams.get("version");
+
+    appVersion.textContent = version;
+    document.title += `-${version}`;
 
     if (typeof fin !== "undefined") {
       fin.System.getVersion()

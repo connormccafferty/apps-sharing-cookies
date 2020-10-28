@@ -1,22 +1,25 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>apps sharing cookies</title>
+    <title>login</title>
   </head>
   <body>
     <p>Version: <span id="of-version"></span></p>
     <p>
-      the "login" button will set a cookie, the url ("/") for both of the apps
-      below requires the cookie - if it isn't present launching those apps will
-      result in them opening to the login page
+      the "login" button will sends the username to the server which sets cookie
+      and returns isPremium value, if isPremium we launch the premium app else
+      we launch lite
     </p>
+    <label for="username">username: </label>
+    <input id="username" type="text" name="username" />
     <button id="login">"login"</button>
     <button id="clear-cookies">clear cookies</button>
-
-    <p>Try launching apps with and without "logging in"</p>
-
-    <button id="launch">launch app</button>
-    <button id="alt-launch">launch other app</button>
+    <p>
+      Try clearing cookies and launching the premium / lite app without logging
+      in
+    </p>
+    <button id="launch">launch app-lite</button>
+    <button id="alt-launch">launch app-premium</button>
   </body>
   <script>
     const ofVersion = document.getElementById("of-version");
@@ -24,12 +27,43 @@
     const clearCookiesBtn = document.getElementById("clear-cookies");
     const launchBtn = document.getElementById("launch");
     const altLaunchBtn = document.getElementById("alt-launch");
+    const usernameInput = document.getElementById("username");
+
+    const launchApp = async (version) =>
+      await fin.Application.startFromManifest(
+        `http://localhost:5555/app.${version}.json`
+      );
 
     loginBtn.addEventListener("click", async (e) => {
       e.preventDefault();
-      const response = await fetch("/signin");
-      console.log(response);
-      if (response.status === 200) console.log('"login" successful');
+      const data = { username: usernameInput.value };
+      usernameInput.value = "";
+      const response = await fetch("/login", {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (response.status === 200) {
+        console.log('"login" successful');
+      }
+
+      // based on the response check which app to launch
+      const { isPremium } = await response.json();
+      try {
+        let app;
+        if (isPremium) {
+          app = await launchApp("premium");
+        } else {
+          app = await launchApp("lite");
+        }
+        // close login page after successful login
+        // await fin.me.close();
+      } catch (err) {
+        console.error(err);
+      }
     });
 
     clearCookiesBtn.addEventListener("click", async (e) => {
@@ -47,13 +81,11 @@
     });
 
     launchBtn.addEventListener("click", async (e) => {
-      await fin.Application.startFromManifest("http://localhost:5555/app.json");
+      await launchApp("lite");
     });
 
     altLaunchBtn.addEventListener("click", async (e) => {
-      await fin.Application.startFromManifest(
-        "http://localhost:5555/app.alt.json"
-      );
+      await launchApp("premium");
     });
 
     if (typeof fin !== "undefined") {

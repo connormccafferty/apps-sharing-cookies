@@ -2,8 +2,8 @@
   "devtools_port": 9090,
   "startup_app": {
     "contextMenu": true,
-    "name": "app-sharing-cookies-login",
-    "uuid": "app-sharing-cookies-login",
+    "name": "openfin-login-app",
+    "uuid": "openfin-login-app",
     "url": "http://localhost:5555/login.html",
     "autoShow": true,
     "saveWindowState": false,
@@ -20,5 +20,10 @@
     "arguments": "",
     "version": "17.85.53.10"
   },
-  "shortcut": {}
+  "shortcut": {
+    "company": "OpenFin",
+    "description": "",
+    "icon": "https://openfin.github.io/golden-prototype/favicon.ico",
+    "name": "openfin-app"
+  }
 }
